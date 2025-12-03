@@ -1,0 +1,10 @@
+*.class
+*.jar
+/bin/
+/out/
+*.classpath
+*.project
+*.iml
+.idea/
+*.DS_Store
+.vscode/
