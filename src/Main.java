@@ -24,6 +24,7 @@ public class Main extends Application{
 	TextField guess;
 	TextField result;
 	TextField word;
+	Button[] alphabet;
 	
 	Circle head;
 	Line torso, rightArm, leftArm, rightLeg, leftLeg;
@@ -75,14 +76,18 @@ public class Main extends Application{
 		
 		
 		//------------- ALPHABET + AGAIN BUTTONS -------------
-		Button[] alphabet = new Button[26];
+		alphabet = new Button[26];
 		int i = 0;
 		for(char c = 'A'; c <= 'Z'; c++) {
 			Button b = new Button(String.valueOf(c));
 			b.setPrefSize(50, 50);
+			b.setFocusTraversable(false);
 			alphabet[i] = b;
 			final char ch = c;
-			b.setOnAction(e -> {checkLetter(Character.toLowerCase(ch));});
+			b.setOnAction(e -> {
+				checkLetter(Character.toLowerCase(ch));
+				((Button)e.getSource()).setDisable(true);
+			});
 			i++;
 		}
 		
@@ -179,7 +184,6 @@ public class Main extends Application{
 		stage.setTitle("Hangman - Marvel Edition");
 		stage.setScene(scene);
 		stage.show();
-		
 
 	}//end start
 	
@@ -222,8 +226,13 @@ public class Main extends Application{
 		hangman.rL();
 		guess.setText(hangman.getCurrentGuess());
 		result.setText("");
+		
 		for(int i = 0; i < totalBodyParts; i++) {
 			bodyParts[i].setVisible(false);
+		}
+		
+		for(int i = 0; i < alphabet.length; i++) {
+			alphabet[i].setDisable(false);
 		}
 	}
 	
